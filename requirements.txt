@@ -1,0 +1,14 @@
+torch
+transformers==4.29.2
+datasets
+tree-sitter
+timeout-decorator
+bitsandbytes
+accelerate
+scikit-learn
+rank-bm25
+fuzzywuzzy
+nltk
+sacrebleu
+deepspeed>0.9
+tiktoken==0.4.0
