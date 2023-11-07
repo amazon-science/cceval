@@ -12,3 +12,4 @@ nltk
 sacrebleu
 deepspeed>0.9
 tiktoken==0.4.0
+openai==0.27.2
