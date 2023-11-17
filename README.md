@@ -4,6 +4,8 @@ This repository contains the data and inference code of the NeurIPS 2023  (Datas
 
 ## Requirements
 - Uncompress the CrossCodeEval data via `tar -xvJf data/crosscodeeval_data.tar.xz  -C data/`
+  - The data contains {baseline, retrieval, retrieval w/ ref.} setting x {bm25, UniXCoder, OpenAI Ada} retriever.
+  - Please email us if you need the raw data. 
 - Install dependencies via `pip install -r requirements.txt`
 - Build tree sitter via `bash build_treesitter.sh`
 - Configure `accelerate` via `accelerate config` if you haven't. A reference configuration is available at `cceval_config.yaml`
@@ -49,7 +51,7 @@ You may run sampling via the following (additional) args:
         --num_return_sequences 5 \
 ```
 
-
+Additionally, please see `openai_inference.py` for OpenAI model benchmarking.
 ## Citation
 
 ```
