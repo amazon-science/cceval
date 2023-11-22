@@ -200,9 +200,10 @@ def get_openai_responses(
                 raise
             
             if response is not None:
-                d['completion'] = response['choices'][0]['message']['content']
+                d['pred'] = response['choices'][0]['message']['content'] # key compatible with eval script
                 d['api_response'] = response
                 d['prompt_used'] = prompt # records the augmented prompt
+                d['task_id'] = d['metadata']['task_id'] # adding for compatibility with eval script
                 print(json.dumps(d), file=f, flush=True)
             else:
                 skipped.append(d['metadata']['task_id'])
@@ -236,15 +237,19 @@ def main():
         '--data_root_dir', type=str, default='data/',
         help='path to directory where data is organized in lang/task.jsonl format'
     )
+    parser.add_argument(
+        '--output_dir', type=str, required=True,
+        help='path to directory where to store outputs'
+    )
     args = parser.parse_args()
 
     # setup paths
+    if not os.path.isdir(args.output_dir):
+        print(f'==== Output dir does not exist. Creating: {args.output_dir} ====')
+        os.makedirs(args.output_dir)
     data_path = os.path.join(args.data_root_dir, args.language, args.task+'.jsonl')
     data = [json.loads(l) for l in open(data_path, 'r').readlines()]
-    out_path = os.path.join(
-        os.path.dirname(data_path), 
-        os.path.basename(data_path).split('.')[0]+'_openai_responses.jsonl'
-    )
+    out_path = os.path.join(args.output_dir, 'prediction.jsonl')
     
     # log info
     is_cross_file = 'bm25' in args.task # change logic to infer this based on use case
