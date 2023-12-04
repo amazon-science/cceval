@@ -1,14 +1,17 @@
 # CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code Completion
 
-This repository contains the data and inference code of the NeurIPS 2023  (Datasets and Benchmarks track) paper "[CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code Completion](https://arxiv.org/abs/2310.11248)."
+This repository contains the data and inference code of the NeurIPS 2023  (Datasets and Benchmarks track)
+paper "[CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code Completion](https://arxiv.org/abs/2310.11248)."
 
 ## Requirements
-- Uncompress the CrossCodeEval data via `tar -xvJf data/crosscodeeval_data.tar.xz  -C data/`
-  - The data contains {baseline, retrieval, retrieval w/ ref.} setting x {bm25, UniXCoder, OpenAI Ada} retriever.
-  - Please email us if you need the raw data. 
+
+- Uncompress the CrossCodeEval data via `tar -xvJf data/crosscodeeval_data.tar.xz -C data/`
+    - The data contains {baseline, retrieval, retrieval w/ ref.} setting x {bm25, UniXCoder, OpenAI Ada} retriever.
+    - Please email us if you need the raw data.
 - Install dependencies via `pip install -r requirements.txt`
 - Build tree sitter via `bash build_treesitter.sh`
-- Configure `accelerate` via `accelerate config` if you haven't. A reference configuration is available at `cceval_config.yaml`
+- Configure `accelerate` via `accelerate config` if you haven't. A reference configuration is available
+  at `cceval_config.yaml`
 
 ## Sample Command
 
@@ -52,6 +55,7 @@ You may run sampling via the following (additional) args:
 ```
 
 Additionally, please see `openai_inference.py` for OpenAI model benchmarking.
+
 ## Citation
 
 ```
@@ -63,7 +67,6 @@ Additionally, please see `openai_inference.py` for OpenAI model benchmarking.
       url={https://arxiv.org/pdf/2310.11248.pdf}
 }
 ```
-
 
 ## Security
 
