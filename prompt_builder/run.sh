@@ -59,8 +59,3 @@ generate_data python unixcoder cosine_sim
 generate_data java unixcoder cosine_sim
 generate_data typescript unixcoder cosine_sim
 generate_data csharp unixcoder cosine_sim
-
-generate_data python codesage_base cosine_sim
-generate_data java codesage_base cosine_sim
-generate_data typescript codesage_base cosine_sim
-generate_data csharp codesage_base cosine_sim
