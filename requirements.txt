@@ -1,5 +1,5 @@
 torch
-transformers==4.29.2
+transformers==4.36.0
 datasets
 tree-sitter
 timeout-decorator
