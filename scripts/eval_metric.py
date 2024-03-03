@@ -168,6 +168,7 @@ def compute_metric_stmt(args):
             f.write(json.dumps(dr) + "\n")
 
     # write the results to a file
+    print(f'writing results to {os.path.join(args.output_dir, "results.json")}')
     with open(os.path.join(args.output_dir, "results.json"), 'w') as f:
         res = {
             "em": em_ratio,
