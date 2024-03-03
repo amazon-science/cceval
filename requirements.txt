@@ -12,4 +12,4 @@ nltk
 sacrebleu
 deepspeed
 tiktoken
-vllm
+vllm>=0.3.3
