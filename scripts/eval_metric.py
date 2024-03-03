@@ -11,6 +11,7 @@ from eval_utils import (
     cal_edit_sim,
     remove_comments
 )
+import os
 
 parser = None
 
@@ -67,7 +68,7 @@ def process_examples(lang, args):
 
 
 def compute_metric_stmt(args):
-    with open(f"{args.output_dir}/prediction.jsonl", "r") as f_pred:
+    with open(os.path.join(args.output_dir, "prediction.jsonl"), "r") as f_pred:
         samples = []
         for l in f_pred.readlines():
             samples.append(json.loads(l))
@@ -104,7 +105,7 @@ def compute_metric_stmt(args):
             pbar.update()
 
     exact_match = 0
-    with open(f"{args.output_dir}/prediction_truncated.jsonl", 'w', encoding="utf-8") as pt, \
+    with open(os.path.join(args.output_dir, "prediction_truncated.jsonl"), 'w', encoding="utf-8") as pt, \
             open(f"{args.output_dir}/exact_match_idx.jsonl", 'w') as em:
         for trunc_s, em_label in zip(truncated_samples, em_labels):
             pt.write(json.dumps(trunc_s) + "\n")
@@ -157,23 +158,24 @@ def compute_metric_stmt(args):
     print(
         f"ID matching: "
         f"EM {id_em_ratio}, "
-        f"Precision {id_precision}, "
-        f"Recall {id_recall}, "
+        #f"Precision {id_precision}, "
+        #f"Recall {id_recall}, "
         f"F1 {id_f1}"
     )
 
-    with open(f"{args.output_dir}/detailed_results.json", 'w') as f:
+    with open(os.path.join(args.output_dir, "detailed_results.json"), 'w') as f:
         for dr in detailed_results:
             f.write(json.dumps(dr) + "\n")
 
     # write the results to a file
-    with open(f"{args.output_dir}/results.json", 'w') as f:
+    with open(os.path.join(args.output_dir, "results.json"), 'w') as f:
         res = {
             "em": em_ratio,
             "es": edit_sim,
             "id_em": id_em_ratio,
             "id_precision": id_precision,
             "id_recall": id_recall,
+            "id_f1": id_f1,
             "total": len(truncated_samples)
         }
         f.write(json.dumps(res, indent=2))

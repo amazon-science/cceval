@@ -7,4 +7,4 @@ git clone https://github.com/tree-sitter/tree-sitter-c-sharp.git;
 git clone https://github.com/tree-sitter/tree-sitter-typescript.git;
 cd ..;
 # Build tree-sitter
-python build_ts_lib.py
+python scripts/build_ts_lib.py

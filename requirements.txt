@@ -1,5 +1,5 @@
 torch
-transformers==4.29.2
+transformers
 datasets
 tree-sitter
 timeout-decorator
@@ -10,6 +10,6 @@ rank-bm25
 fuzzywuzzy
 nltk
 sacrebleu
-deepspeed>0.9
-tiktoken==0.4.0
-openai==0.27.2
+deepspeed
+tiktoken
+vllm

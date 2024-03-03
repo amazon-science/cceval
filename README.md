@@ -9,25 +9,67 @@ paper "[CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code 
     - The data contains {baseline, retrieval, retrieval w/ ref.} setting x {bm25, UniXCoder, OpenAI Ada} retriever.
     - Please email us if you need the raw data.
 - Install dependencies via `pip install -r requirements.txt`
-- Build tree sitter via `bash build_treesitter.sh`
-- Configure `accelerate` via `accelerate config` if you haven't. A reference configuration is available
-  at `cceval_config.yaml`
+- Build tree sitter via `bash scripts/build_treesitter.sh`
 
-## Sample Command
+
+## Evaluate on CrossCodeEval
+
+We recommended using [vLLM](https://github.com/vllm-project/vllm) for fast and distributed inference on CrossCodeEval. 
+
+First, we run generation:
+
+```bash
+export gpus=2
+export model=bigcode/starcoder2-3b
+export language=python
+export task=line_completion_oracle_unixcoder_cosine_sim
+export output_dir=./tmp/crosscodeeval_testrun/
+python scripts/vllm_inference.py \
+  --tp $gpus \
+  --task $task \
+  --language $language \
+  --model $model \
+  --output_dir $output_dir \
+  --use_crossfile_context 
+```
+For additional args, e.g., cross-file context length and sampling top_p, please see `python vllm_inference.py --help`.
+
+Then, we run evaluation:
+```bash
+
+export language=python
+export ts_lib=./build/${language}-lang-parser.so; 
+export task=line_completion_oracle_unixcoder_cosine_sim
+export prompt_file=./data/${language}/${task}.jsonl 
+export output_dir=./tmp/crosscodeeval_testrun/;  
+python scripts/eval.py \
+  --prompt_file $prompt_file \
+  --output_dir $output_dir \
+  --ts_lib $ts_lib \
+  --language $language \
+  --only_compute_metric
+```
+
+
+
+<details><summary> If you prefer non-vLLM script <i>:: click to expand ::</i></summary>
+<div>
+
+First, configure `accelerate` via `accelerate config` if you haven't. A reference configuration is available at `cceval_config.yaml`
 
 The following command demonstrates how to run greedy eval using codegen-350M on python with cross-file context.
 
 ```bash
 export model_type=codelm_cfc # or codelm for no cross-file context eval
 export model_name=Salesforce/codegen-350M-mono
-export lang=python
-export ts_lib=./build/$lang-lang-parser.so
+export language=python
+export ts_lib=./build/${language}-lang-parser.so
 export dtype=bf16 # or fp16
-export prompt_file=./data/crosscodeeval_data/$lang/line_completion_rg1_bm25.jsonl # or other options in the dir, which corresponds to different retrieval methods and/or retrieval settings
+export prompt_file=./data/crosscodeeval_data/${language}/line_completion_rg1_bm25.jsonl # or other options in the dir, which corresponds to different retrieval methods and/or retrieval settings
 export max_seq_length=2048
 export cfc_seq_length=512 
 export batch_size=16 # reduce for larger models
-export output_dir=/tmp/crosscodeeval_testrun/
+export output_dir=./tmp/crosscodeeval_testrun/
 
 accelerate launch eval.py \
         --model_type $model_type \
@@ -42,7 +84,7 @@ accelerate launch eval.py \
         --num_return_sequences 1 \
         --overwrite_cache True \
         --ts_lib $ts_lib \
-        --language $lang
+        --language $language
 ```
 
 You may run sampling via the following (additional) args:
@@ -53,6 +95,13 @@ You may run sampling via the following (additional) args:
         --temperature 0.2 \
         --num_return_sequences 5 \
 ```
+
+
+</div>
+</details>
+
+
+
 
 Additionally, please see `openai_inference.py` for OpenAI model benchmarking.
 
