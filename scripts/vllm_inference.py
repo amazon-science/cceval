@@ -92,7 +92,6 @@ def cceval_generate(
     with open(out_path, 'w') as f:
         for d, response in tqdm(zip(data, outputs)):
             d['pred'] = response.outputs[0].text
-            d['prompt_used'] = prompt
             d['task_id'] = d['metadata']['task_id']
             print(json.dumps(d), file=f, flush=True)
 
