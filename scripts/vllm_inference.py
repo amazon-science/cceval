@@ -1,7 +1,5 @@
 """
-Script to query an OpenAI API to generate code.
-Set environment variable OPENAI_KEY with your API key
-before running this script.
+Script to run vllm-based inference. See README for an example.
 """
 
 import argparse
