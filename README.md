@@ -127,12 +127,13 @@ python scripts/eval.py \
 ## Citation
 
 ```
+
 @inproceedings{ding2023crosscodeeval,
-      title={CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code Completion}, 
-      author={Yangruibo Ding and Zijian Wang and Wasi Uddin Ahmad and Hantian Ding and Ming Tan and Nihal Jain and Murali Krishna Ramanathan and Ramesh Nallapati and Parminder Bhatia and Dan Roth and Bing Xiang},
-      year={2023},
-      booktitle={Advances in Neural Information Processing Systems},
-      url={https://arxiv.org/pdf/2310.11248.pdf}
+    title={CrossCodeEval: A Diverse and Multilingual Benchmark for Cross-File Code Completion}, 
+    author={Yangruibo Ding and Zijian Wang and Wasi Uddin Ahmad and Hantian Ding and Ming Tan and Nihal Jain and Murali Krishna Ramanathan and Ramesh Nallapati and Parminder Bhatia and Dan Roth and Bing Xiang},
+    year={2023},
+    booktitle={Thirty-seventh Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+    url={https://arxiv.org/pdf/2310.11248.pdf}
 }
 ```
 ## Questions
