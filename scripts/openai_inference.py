@@ -194,7 +194,7 @@ def get_openai_responses(
 
             if response is not None:
                 d['pred_raw'] = response.choices[0].message.content  # key compatible with eval script
-                d['pred'] = '\n'.join(d['pred_raw'].split('\n')[1:]) if d['pred_raw'].startswith('```') else d['pred_raw']
+                d['pred'] = '\n'.join(d['pred_raw'].split('\n')[1:]).strip('`') if d['pred_raw'].startswith('```') else d['pred_raw'] # newer chatgpt may ourput ```[lang_tag]``` at beginning 
                 # d['api_response'] = str(response)
                 d['prompt_used'] = prompt  # records the augmented prompt
                 d['task_id'] = d['metadata']['task_id']  # adding for compatibility with eval script
